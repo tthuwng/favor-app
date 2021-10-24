@@ -17,4 +17,20 @@ export default class User extends BaseEntity {
   @Field(() => ID)
   @PrimaryColumn()
   id: string;
+
+  @Field()
+  @Column()
+  name: string;
+
+  @Field()
+  @Column()
+  email: string;
+
+  @Field()
+  @Column()
+  password: string;
+
+  @Field()
+  @Column()
+  rewards: string;
 }

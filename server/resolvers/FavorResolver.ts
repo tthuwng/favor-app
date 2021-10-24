@@ -9,11 +9,10 @@ import {
 } from 'type-graphql';
 import Favor from '../models/Favor';
 
-const allRelations = ['indices', 'policy', 'categories'];
 @InputType()
 class CreateFavorInput {
   @Field()
-  text: string;
+  reward: number;
 
   @Field()
   description: string;
@@ -21,35 +20,21 @@ class CreateFavorInput {
   @Field()
   timestamp: string;
 
-  @Field(() => [String])
-  indices: string[];
+  @Field()
+  favorType: string;
 
-  @Field(() => [String])
-  categories: string[];
+  @Field()
+  timeNeeded: Date;
 }
 
 @Resolver()
 export default class FavorResolver {
-  @Query(() => [Favor])
-  favors() {
-    return Favor.find({
-      relations: allRelations,
-    });
-  }
-
-  @Query(() => Favor)
-  favor(@Arg('id', () => ID) id: string) {
-    return Favor.findOneOrFail(id, {
-      relations: allRelations,
-    });
-  }
-
   @Mutation(() => Favor)
   async createFavor(@Arg('data') data: CreateFavorInput) {
     const favor = new Favor();
 
     favor.description = data.description;
-    favor.text = data.text;
+    favor.reward = data.reward;
     favor.timestamp = new Date(data.timestamp);
 
     await favor.save();

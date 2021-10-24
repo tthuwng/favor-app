@@ -20,7 +20,23 @@ export default class Favor extends BaseEntity {
 
   @Field()
   @Column()
-  text: string; // Full text at that point in time
+  reward: number;
+
+  @Field()
+  @Column()
+  description: string;
+
+  @Field()
+  @Column()
+  favorType: string;
+
+  @Field()
+  @Column()
+  timeNeeded: Date;
+
+  @Field()
+  @Column()
+  completed: Boolean;
 
   @UpdateDateColumn()
   @Field(() => Date)
@@ -29,10 +45,6 @@ export default class Favor extends BaseEntity {
   @CreateDateColumn()
   @Field(() => Date)
   createdAt: Date;
-
-  @Field()
-  @Column()
-  description: string; // Description of all changes between last legislation update and now; ML-generated stuffs
 
   @Field(() => Date)
   @Column()
