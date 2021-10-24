@@ -10,18 +10,18 @@ import {
   Pressable,
   TextInput,
 } from 'react-native';
-import { RecipeCard } from '../../AppStyles';
+import { FavorCard } from '../../AppStyles';
 
 import { IconButton } from '../../components';
 import Firebase from '../../config/firebase';
 import { AuthenticatedUserContext } from '../../navigation/AuthenticatedUserProvider';
 import {
   getCategoryName,
-  getRecipesByRecipeName,
-  getRecipesByCategoryName,
-  getRecipesByIngredientName,
+  getFavorsByFavorName,
+  getFavorsByCategoryName,
+  getFavorsByIngredientName,
 } from '../../data/MockDataAPI';
-import { recipes } from '../../data/dataArrays';
+import { favors } from '../../data/dataArrays';
 // import MenuImage from '../../components/MenuImage';
 
 const auth = Firebase.auth();
@@ -56,27 +56,27 @@ export default function HomeScreen(props) {
 
   const handleSearch = (text) => {
     setValue(text);
-    var recipeArray1 = getRecipesByRecipeName(text);
-    var recipeArray2 = getRecipesByCategoryName(text);
-    var recipeArray3 = getRecipesByIngredientName(text);
-    var aux = recipeArray1.concat(recipeArray2);
-    var recipeArray = [...new Set(aux)];
+    var favorArray1 = getFavorsByFavorName(text);
+    var favorArray2 = getFavorsByCategoryName(text);
+    var favorArray3 = getFavorsByIngredientName(text);
+    var aux = favorArray1.concat(favorArray2);
+    var favorArray = [...new Set(aux)];
 
     if (text == '') {
       setData([]);
     } else {
-      setData(recipeArray);
+      setData(favorArray);
     }
   };
 
-  const onPressRecipe = (item) => {
+  const onPressFavor = (item) => {
     navigation.navigate('Favor', { item });
   };
 
-  const renderRecipes = ({ item }) => (
+  const renderFavors = ({ item }) => (
     <TouchableHighlight
       underlayColor='rgba(73,182,77,0.9)'
-      onPress={() => onPressRecipe(item)}
+      onPress={() => onPressFavor(item)}
     >
       <View style={styles.container}>
         <Image style={styles.photo} source={{ uri: item.photo_url }} />
@@ -122,9 +122,9 @@ export default function HomeScreen(props) {
           vertical
           showsVerticalScrollIndicator={false}
           numColumns={2}
-          data={recipes}
-          renderItem={renderRecipes}
-          keyExtractor={(item) => `${item.recipeId}`}
+          data={favors}
+          renderItem={renderFavors}
+          keyExtractor={(item) => `${item.favorId}`}
         />
       </View>
     </View>
@@ -166,9 +166,9 @@ const styles = StyleSheet.create({
     width: 200,
     height: 50,
   },
-  photo: RecipeCard.photo,
-  title: RecipeCard.title,
-  category: RecipeCard.category,
+  photo: FavorCard.photo,
+  title: FavorCard.title,
+  category: FavorCard.category,
   text: {
     fontSize: 16,
     fontWeight: 'normal',

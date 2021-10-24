@@ -15,7 +15,7 @@ export default function ViewIngredientsButton(props) {
       onPress={props.onPress}
     >
       <View style={styles.container}>
-        <Text style={styles.text}>View Ingredients</Text>
+        <Text style={styles.text}>I can help!</Text>
       </View>
     </TouchableHighlight>
   );

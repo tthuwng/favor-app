@@ -1,6 +1,6 @@
 import { Text } from 'react-native';
 import React, { Component } from 'react';
-import { recipes, categories, ingredients } from './dataArrays';
+import { favors, categories, ingredients } from './dataArrays';
 
 export function getCategoryById(categoryId) {
   let category;
@@ -42,32 +42,32 @@ export function getCategoryName(categoryId) {
   return name;
 }
 
-export function getRecipes(categoryId) {
-  const recipesArray = [];
-  recipes.map((data) => {
+export function getFavors(categoryId) {
+  const favorsArray = [];
+  favors.map((data) => {
     if (data.categoryId == categoryId) {
-      recipesArray.push(data);
+      favorsArray.push(data);
     }
   });
-  return recipesArray;
+  return favorsArray;
 }
 
 // modifica
-export function getRecipesByIngredient(ingredientId) {
-  const recipesArray = [];
-  recipes.map((data) => {
+export function getFavorsByIngredient(ingredientId) {
+  const favorsArray = [];
+  favors.map((data) => {
     data.ingredients.map((index) => {
       if (index[0] == ingredientId) {
-        recipesArray.push(data);
+        favorsArray.push(data);
       }
     });
   });
-  return recipesArray;
+  return favorsArray;
 }
 
-export function getNumberOfRecipes(categoryId) {
+export function getNumberOfFavors(categoryId) {
   let count = 0;
-  recipes.map((data) => {
+  favors.map((data) => {
     if (data.categoryId == categoryId) {
       count++;
     }
@@ -88,44 +88,44 @@ export function getAllIngredients(idArray) {
 }
 
 // functions for search
-export function getRecipesByIngredientName(ingredientName) {
+export function getFavorsByIngredientName(ingredientName) {
   const nameUpper = ingredientName.toUpperCase();
-  const recipesArray = [];
+  const favorsArray = [];
   ingredients.map((data) => {
     if (data.name.toUpperCase().includes(nameUpper)) {
       // data.name.yoUpperCase() == nameUpper
-      const recipes = getRecipesByIngredient(data.ingredientId);
-      const unique = [...new Set(recipes)];
+      const favors = getFavorsByIngredient(data.ingredientId);
+      const unique = [...new Set(favors)];
       unique.map((item) => {
-        recipesArray.push(item);
+        favorsArray.push(item);
       });
     }
   });
-  const uniqueArray = [...new Set(recipesArray)];
+  const uniqueArray = [...new Set(favorsArray)];
   return uniqueArray;
 }
 
-export function getRecipesByCategoryName(categoryName) {
+export function getFavorsByCategoryName(categoryName) {
   const nameUpper = categoryName.toUpperCase();
-  const recipesArray = [];
+  const favorsArray = [];
   categories.map((data) => {
     if (data.name.toUpperCase().includes(nameUpper)) {
-      const recipes = getRecipes(data.id); // return a vector of recipes
-      recipes.map((item) => {
-        recipesArray.push(item);
+      const favors = getFavors(data.id); // return a vector of favors
+      favors.map((item) => {
+        favorsArray.push(item);
       });
     }
   });
-  return recipesArray;
+  return favorsArray;
 }
 
-export function getRecipesByRecipeName(recipeName) {
+export function getFavorsByRecipeName(recipeName) {
   const nameUpper = recipeName.toUpperCase();
-  const recipesArray = [];
-  recipes.map((data) => {
+  const favorsArray = [];
+  favors.map((data) => {
     if (data.title.toUpperCase().includes(nameUpper)) {
-      recipesArray.push(data);
+      favorsArray.push(data);
     }
   });
-  return recipesArray;
+  return favorsArray;
 }
